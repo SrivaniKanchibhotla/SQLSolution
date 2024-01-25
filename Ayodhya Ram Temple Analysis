@@ -1,0 +1,66 @@
+--Q1) Retrieve information about the Ram Mandir?
+Select * from Temple 
+
+--Q2) List all construction phases for the Ram Mandir?
+Select Te.Name,CP.PhaseName from Temple Te
+Left Join ConstructionPhase CP
+ON Te.TempleID=CP.TempleID
+
+ 
+--Q3)Find the total amount of donations received for the Ram Mandir?
+Select  Te.Name,Sum(Do.Amount) as [Total Donation] from Temple Te
+Left Join Donations Do
+On Te.TempleId =Do.TempleID
+Group by Name
+
+ 
+--Q4)Get details about the architecture of the Ram Mandir?
+Select Te.Name,Ar.ArchitectName from Temple Te
+Left Join Architecture Ar
+On Te.TempleID=Ar.TempleID
+
+ 
+--Q5)Retrieve events associated with the Ram Mandir?
+ 
+Select Te.Name,Ev.EventName from Temple Te
+Left Join TempleEvents TEv
+On Te.TempleID=TEv.TempleID
+Left Join [Events] Ev
+on Ev.EventID=TEv.EventID
+
+ 
+--Q6) Find donors who contributed more than 50000 towards the Ram Mandir?
+ 
+Select  Te.Name,Do.Amount as [Donation],Do.DonorName from Temple Te
+Left Join Donations Do
+On Te.TempleId =Do.TempleID
+Where Do.Amount>50000
+
+ 
+--Q7)Retrieve details about a specific deity (e.g., Rama)?
+ 
+ Select * from Deity where Name='Rama'
+-
+ 
+--Q8) Find the start and end dates of the construction phases for the Ram Mandir?
+
+Select Te.Name,CP.PhaseName,CP.StartDate,CP.CompletionDate from Temple Te
+Left Join ConstructionPhase CP
+ON Te.TempleID=CP.TempleID
+
+ 
+--Q9) Count the number of events associated with each temple?
+ 
+ Select count(Ev.EventID) as NoOfEvent
+--Te.Name,Ev.EventName 
+from Temple Te
+Left Join TempleEvents TEv
+On Te.TempleID=TEv.TempleID
+Left Join [Events] Ev
+on Ev.EventID=TEv.EventID
+Group By Te.TempleID
+
+ 
+--Q10)Find the donors who made contributions on or after 2021-06-01'? 
+
+Select DonorName from Donations where DonationDate>='2021-06-01'
